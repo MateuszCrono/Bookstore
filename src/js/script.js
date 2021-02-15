@@ -28,4 +28,14 @@ function render() {
 
 render();
 
+const favouriteBooks = [];
 
+function initActions() {
+  thisBook = this;
+
+  thisBook.
+  for (let book in )
+}
+
+initActions();
+console.log('favouriteBooks', favouriteBooks);
