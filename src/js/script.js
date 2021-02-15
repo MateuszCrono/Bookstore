@@ -31,10 +31,17 @@ render();
 const favouriteBooks = [];
 
 function initActions() {
-  thisBook = this;
-
-  thisBook.
-  for (let book in )
+  const booksContainer = document.querySelector(select.containerOf.booksList);
+  const bookImage = booksContainer.querySelectorAll('.book__image')
+  for (let image of bookImage) {
+    image.addEventListener('dblclick', function(event) {
+      event.preventDefault();
+      image.classList.add('favorite');
+      const bookData = image.getAttribute('data-id');
+      favouriteBooks.push(bookData);
+      console.log('test');
+    });
+  }
 }
 
 initActions();
