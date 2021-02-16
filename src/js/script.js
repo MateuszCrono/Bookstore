@@ -54,10 +54,18 @@ const filters = [];
     const booksImage = booksContainer.querySelectorAll('.book__image');
     for (let image of booksImage) {
       image.addEventListener('dblclick', function(event) {
+        if (!image.classList.contains('favorite')) {
         event.preventDefault();
         image.classList.add('favorite')
         const bookData = image.getAttribute('data-id')
-        favouriteBooks.push(bookData)
+        favouriteBooks.push(bookData) }
+        else {
+          event.preventDefault();
+          image.classList.remove('favorite')
+          const bookData = image.getAttribute('data-id')
+          const BookSplice = favouriteBooks.indexOf(bookData)
+          favouriteBooks.splice(BookSplice, 1);
+        }
       });
     }
 
