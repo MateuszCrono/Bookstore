@@ -30,32 +30,47 @@ render();
 
 const filters = [];
 const favouriteBooks = [];
+const filteredBook = document.querySelector(select.containerOf.filters)
 
-  function initActions() {
-    const booksContainer = document.querySelector(select.containerOf.booksList);
-    const favouriteBooks = [];
-    // const booksImage = booksContainer.querySelectorAll(select.containerOf.booksImage);
-      booksContainer.addEventListener('dblclick', function(event) {
-        event.preventDefault();
-        if(event.target.offsetParent.classList.contains("book__image"))
-        {
-          const EventTargetID = event.target.offsetParent.getAttribute('data-id')
-        if (event.target.offsetParent.classList.contains('favorite')) {
+function initActions() {
+  const booksContainer = document.querySelector(select.containerOf.booksList);
+  const favouriteBooks = [];
+  // const booksImage = booksContainer.querySelectorAll(select.containerOf.booksImage);
+  booksContainer.addEventListener('dblclick', function(event) {
+    event.preventDefault();
+    if(event.target.offsetParent.classList.contains('book__image'))
+    {
+      const EventTargetID = event.target.offsetParent.getAttribute('data-id');
 
-          event.target.offsetParent.classList.remove('favorite')
-          const BookSplice = favouriteBooks.indexOf(EventTargetID)
-          favouriteBooks.splice(BookSplice, 1);
+      if (event.target.offsetParent.classList.contains('favorite')) {
+
+        event.target.offsetParent.classList.remove('favorite');
+        const BookSplice = favouriteBooks.indexOf(EventTargetID);
+        favouriteBooks.splice(BookSplice, 1);
       }
-        else {
-          event.target.offsetParent.classList.add('favorite')
-          favouriteBooks.push(EventTargetID)
-        }
+      else {
+        event.target.offsetParent.classList.add('favorite');
+        favouriteBooks.push(EventTargetID);
+      }
+    }
+
+  });
+    filteredBook.addEventListener('click', function(event) {
+      event.preventDefault();
+      if (event.target.tagName == 'INPUT' && event.target.type == 'checkbox' && event.target.name == 'filter' ) {
+      console.log(event.target.value)
+    }
+      if (event.target.checked == true) {
+        filters.push(event.target.value)
+      }
+      else {
+        const checkedSplice = filters.indexOf(event.target.value)
+        filters.splice(checkedSplice, 1)
       }
 
-      });
-
-
-  }
+});
+}
 initActions();
 console.log('favouriteBooks', favouriteBooks);
+
 
