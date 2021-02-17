@@ -6,7 +6,8 @@ const select = {
   },
   containerOf: {
     booksList: '.books-list',
-    filters: '.filters'
+    filters: '.filters',
+    booksImage: '.book__image'
   },
 };
 const templates = {
@@ -32,28 +33,29 @@ const favouriteBooks = [];
 
   function initActions() {
     const booksContainer = document.querySelector(select.containerOf.booksList);
-    const booksImage = booksContainer.querySelectorAll('.book__image');
-    for (let image of booksImage) {
-      image.addEventListener('dblclick', function(event) {
-        if (!image.classList.contains('favorite')) {
+    const favouriteBooks = [];
+    // const booksImage = booksContainer.querySelectorAll(select.containerOf.booksImage);
+      booksContainer.addEventListener('dblclick', function(event) {
         event.preventDefault();
-        image.classList.add('favorite')
-        const bookData = image.getAttribute('data-id')
-        console.log(bookData);
-        favouriteBooks.push(bookData) }
-        else {
-          event.preventDefault();
-          image.classList.remove('favorite')
-          const bookData = image.getAttribute('data-id')
+        if(event.target.offsetParent.classList.contains("book__image"))
+        {
+          const EventTargetID = event.target.offsetParent.getAttribute('data-id')
+        if (event.target.offsetParent.classList.contains('favorite')) {
 
-          const BookSplice = favouriteBooks.indexOf(bookData)
+          event.target.offsetParent.classList.remove('favorite')
+          const BookSplice = favouriteBooks.indexOf(EventTargetID)
           favouriteBooks.splice(BookSplice, 1);
-          console.log('favouriteBooks', favouriteBooks);
+      }
+        else {
+          event.target.offsetParent.classList.add('favorite')
+          favouriteBooks.push(EventTargetID)
         }
+      }
+
       });
-    }
+
 
   }
 initActions();
-
+console.log('favouriteBooks', favouriteBooks);
 
