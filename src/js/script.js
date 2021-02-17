@@ -86,10 +86,10 @@ for (let books of dataSource.books) {
     }
   }
   if (shouldbeHidden = true ) {
-    document.querySelector('.book__image[data-id=" + books.id + "]').classlist.add('hidden')
+    document.querySelector('.book__image[data-id=" + books.id + "]').classList.add('hidden')
   }
   else {
-    document.querySelector('.book__image[data-id=" + books.id + "]').classlist.remove('hidden')
+    document.querySelector('.book__image[data-id=" + books.id + "]').classList.remove('hidden')
   }
 }
 
