@@ -24,12 +24,12 @@ class BooksList {
     thisBook.initActions();
   }
 
-    initData() {
+  initData() {
     const thisBook = this;
     thisBook.data = dataSource.books;
   }
 
-    getElements() {
+  getElements() {
     const thisBook = this;
     thisBook.filters = [];
     thisBook.favouriteBooks = [];
@@ -38,10 +38,10 @@ class BooksList {
 
   }
 
-    render() {
-     const thisBook = this;
+  render() {
+    const thisBook = this;
     for (let books of thisBook.data) {
-      books.ratingBgc = thisBook.DetermineRatingBgc(books.rating)
+      books.ratingBgc = thisBook.DetermineRatingBgc(books.rating);
       books.ratingWidth = books.rating * 10;
       //generate HTML based on template //
       const generatedHTML = templates(books);
@@ -63,7 +63,7 @@ class BooksList {
         const EventTargetID = event.target.offsetParent.getAttribute('data-id');
         if (event.target.offsetParent.classList.contains('favorite')) {
           event.target.offsetParent.classList.remove('favorite');
-          const BookSplice = favouriteBooks.indexOf(EventTargetID);
+          const BookSplice = thisBook.favouriteBooks.indexOf(EventTargetID);
           thisBook.favouriteBooks.splice(BookSplice, 1);
         }
         else {
@@ -104,27 +104,31 @@ class BooksList {
     }
   }
 
-    DetermineRatingBgc(rating) {
-    let background = ''
-  if (rating<6) {
-    background = 'linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%)';
-  }
-  else if(rating >= 6 && rating <= 8) {
-    background = 'linear-gradient(to bottom, #b4df5b 0%, #b4df5b 100%)';
-  }
-  else if(rating > 8 && rating <= 9) {
-    background = 'linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)';
-  }
-  else if (rating > 9 ) {
-    background = 'linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)';
-  }
-  return background
+  DetermineRatingBgc(rating) {
+    let background = '';
+    if (rating<6) {
+      background = 'linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%)';
+    }
+    else if(rating >= 6 && rating <= 8) {
+      background = 'linear-gradient(to bottom, #b4df5b 0%, #b4df5b 100%)';
+    }
+    else if(rating > 8 && rating <= 9) {
+      background = 'linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)';
+    }
+    else if (rating > 9 ) {
+      background = 'linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)';
+    }
+    return background;
   }
 
 }
-const app = new BooksList();
 
-
+const app = {
+  init: function(){
+    new BooksList();
+  }
+};
+app.init();
 
 
 
