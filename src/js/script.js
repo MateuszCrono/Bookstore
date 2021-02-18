@@ -13,8 +13,30 @@ const select = {
 const templates = {
   booksTemplate : Handlebars.compile(document.querySelector(select.templateOf.booksTemplate).innerHTML),
 };
+
+
+function DetermineRatingBgc(rating) {
+  let background = ''
+if (rating<6) {
+  background = 'linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%)';
+}
+if(rating >= 6 && rating <= 8) {
+  background = 'linear-gradient(to bottom, #b4df5b 0%, #b4df5b 100%)';
+}
+if(rating > 8 && rating <= 9) {
+  background = 'linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)';
+}
+if (rating > 9 ) {
+  background = 'linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)';
+}
+return background
+}
+
 function render() {
   for (let books of dataSource.books) {
+
+    books.ratingBgc = DetermineRatingBgc(books.rating)
+    books.ratingWidth = books.rating * 10;
     //generate HTML based on template //
     const generatedHTML = templates.booksTemplate(books);
     //Create element using utils.createElementfromHTML //
@@ -26,6 +48,8 @@ function render() {
 
   }
 }
+
+
 render();
 
 const filters = [];
@@ -62,12 +86,12 @@ function initActions() {
     }
     if (event.target.checked == true) {
       filters.push(event.target.value);
-      console.log(filters)
+      console.log(filters);
     }
     else {
       const checkedSplice = filters.indexOf(event.target.value);
       filters.splice(checkedSplice, 1);
-      console.log(filters)
+      console.log(filters);
     }
     filterBook();
   });
@@ -76,23 +100,25 @@ initActions();
 
 
 function filterBook() {
-for (let books of dataSource.books) {
-  let shouldbeHidden = false;
-  for (const filter of filters) {
-    if(!books.details[filter]) {
-      shouldbeHidden = true;
-      break;
+  for (let books of dataSource.books) {
+    let shouldbeHidden = false;
+    for (const filter of filters) {
+      if(!books.details[filter]) {
+        shouldbeHidden = true;
+        break;
+      }
+    }
+    if (shouldbeHidden = true ) {
+      document.querySelector('.bookimage[data-id="' + books.id + '"]').classList.add('hidden');
+    }
+    else {
+      document.querySelector('.bookimage[data-id="' + books.id + '"]').classList.remove('hidden');
     }
   }
-  if (shouldbeHidden = true ) {
-    document.querySelector('.book__image[data-id="' + books.id + "]').classList.add('hidden')
-  }
-  else {
-    document.querySelector('.book__image[data-id="' + books.id + "]').classList.remove('hidden')
-  }
-}
 
 }
+
+
 
 
 
